@@ -55,7 +55,7 @@ def check(ipa_path):
 
 
 if __name__ == '__main__':
-    ipa_path = "c:/h17_dis.ipa"
+    ipa_path = "/Users/gavin/Documents/03-my_develop/01-code/pythonWorkspace/ios_private_api_scan/target/3.7-release-QQSportsV3.ipa"
 #     cur_dir = os.getcwd()
 #     dest = os.path.join(cur_dir, 'tmp')
 #     app_path = app_utils.unzip_ipa(ipa_path, dest)

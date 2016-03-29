@@ -23,10 +23,14 @@ sqlite_info = {
 cur_dir = os.getcwd()
 
 class_dump_z_path = {
-    'iphone': os.path.join(cur_dir, 'class_dump_z/iphone_armv6/class-dump-z'),
-    'linux': os.path.join(cur_dir, 'class_dump_z/linux_x86/class-dump-z'),
-    'mac': os.path.join(cur_dir, 'class_dump_z/mac_x86/class-dump-z'),
-    'win': os.path.join(cur_dir, 'class_dump_z/win_x86/class-dump-z')
+    # 'iphone': os.path.join(cur_dir, 'class_dump_z/iphone_armv6/class-dump-z'),
+    # 'linux': os.path.join(cur_dir, 'class_dump_z/linux_x86/class-dump-z'),
+    # 'mac': os.path.join(cur_dir, 'class_dump_z/mac_x86/class-dump-z'),
+    # 'win': os.path.join(cur_dir, 'class_dump_z/win_x86/class-dump-z')
+    'iphone': os.path.join(cur_dir, 'class-dump'),
+    'linux': os.path.join(cur_dir, 'class-dump'),
+    'mac': os.path.join(cur_dir, 'class-dump'),
+    'win': os.path.join(cur_dir, 'class-dump')
 }
 
 #配置各个不同sdk版本的framework目录，

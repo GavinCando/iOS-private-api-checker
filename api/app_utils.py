@@ -32,13 +32,19 @@ def get_executable_file(path):
             break
 
     regex = re.compile(".*?Mach-O.*")
+    targetResultPath  = os.path.join(path, "checkResult.txt")
     for f in os.listdir(path):
-        cmd = "file -b %s" % os.path.join(path, f)
-        out = subprocess.check_output(cmd.split())
+        cmd = "file -b %s > %s" % (os.path.join(path,f), targetResultPath)
+
+        os.system(cmd)
+        fp = open(targetResultPath)
+        out = fp.readlines()[0]
+        fp.close()
+        os.remove(targetResultPath)
+
         if regex.search(out):
             return os.path.join(path, f)
     return None
-
 
 def get_app_strings(app_path):
     """
@@ -50,18 +56,27 @@ def get_app_strings(app_path):
     info:strings - 显示文件中的可打印字符
     strings 的主要用途是确定非文本文件的包含的文本内容。
     """
-
-    cmd = "/usr/bin/strings %s" % app_path
-    output = subprocess.check_output(cmd.split())
-    
-    strings_file_name  = 'strings_' + os.path.basename(app_path) or 'strings'
     cur_dir = os.getcwd()
+    strings_file_name  = 'strings_' + os.path.basename(app_path) or 'strings'
     strings_file_name = os.path.join(cur_dir, "tmp/" + strings_file_name)
-    
 
-    strings = open(strings_file_name + ".txt", "w")
-    print >>strings, output #将strings内容输出到文件中
-    return set(output.split())
+    cmd = "/usr/bin/strings %s > %s" % (app_path, strings_file_name)
+    os.system(cmd)
+
+    fp = open(strings_file_name)
+    output = fp.readlines()
+    fp.close()
+    os.remove(strings_file_name)
+
+    tmpList = []
+    for outputLine in output:
+        outputLine = outputLine.replace("\n","")
+        for splitTmp in outputLine.split():
+            tmpList.append(splitTmp)
+
+    rtValue = set(tmpList)
+
+    return rtValue
 
 def get_app_variables(app):
     "get all variables, properties, and interface name"

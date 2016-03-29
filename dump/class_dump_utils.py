@@ -5,6 +5,7 @@ class-dump操作类
 @author: hzwangzhiwei
 '''
 import subprocess
+import os
 from utils import utils
 class_dump_path = utils.get_clas_dump_path()
 
@@ -25,5 +26,21 @@ def dump_app(app_path):
     get all private variables, properties, and interface name
     '''
     class_dump = class_dump_path + " %s" % app_path
-    dump_result = subprocess.check_output(class_dump.split())
-    return dump_result
+
+
+    cur_dir = os.getcwd()
+    class_dump_file_name = os.path.join(cur_dir, "tmp/classDumpResult.txt")
+    cmd = "%s > %s" % (class_dump, class_dump_file_name)
+
+    os.system(cmd)
+
+    fp = open(class_dump_file_name)
+    out = fp.readlines()
+    fp.close()
+    os.remove(class_dump_file_name)
+
+    totalLine = ""
+    for line in out:
+        totalLine += line
+
+    return totalLine
