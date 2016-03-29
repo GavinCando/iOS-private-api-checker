@@ -56,7 +56,7 @@ def get_app_strings(app_path):
     info:strings - 显示文件中的可打印字符
     strings 的主要用途是确定非文本文件的包含的文本内容。
     """
-    cur_dir = os.getcwd()
+    cur_dir = os.getcwd() 
     strings_file_name  = 'strings_' + os.path.basename(app_path) or 'strings'
     strings_file_name = os.path.join(cur_dir, "tmp/" + strings_file_name)
 
