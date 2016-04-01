@@ -24,7 +24,7 @@ def otool_app(app_path):
     cmd = otool_cmd % app_path
 
     cur_dir = os.getcwd()
-    otool_file_name = os.path.join(cur_dir, "tmp/otoolResult.txt")
+    otool_file_name = os.path.join(cur_dir, "result/otoolResult")
     cmd = "%s > %s" % (cmd, otool_file_name)
 
     os.system(cmd)
@@ -32,7 +32,7 @@ def otool_app(app_path):
     fp = open(otool_file_name)
     out = fp.readlines()
     fp.close()
-    os.remove(otool_file_name)
+    # os.remove(otool_file_name)
 
     pattern = re.compile("PrivateFrameworks\/(\w*)\.framework")
     pub_pattern = re.compile("Frameworks\/([\.\w]*)")
@@ -46,5 +46,18 @@ def otool_app(app_path):
         
         for r in re.finditer(pub_pattern, outLine):
             public.add(r.group(1))
-        
+
+    print "="*50
+    print "使用private Framework %d 个" % (len(private))
+    print "*"*50
+    for singel_private_framework in private:
+        print singel_private_framework
+    print "*"*50
+
+    print "="*50
+    print "使用Public Framework %d 个" % (len(public))
+    print "*"*50
+    for singel_public_framework in public:
+        print singel_public_framework
+    print "*"*50
     return private, public

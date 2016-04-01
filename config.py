@@ -16,7 +16,7 @@ mysql_info = {
 }
 
 sqlite_info = {
-    'DB': 'ios_private.db',
+    'DB': 'ios_private_9.3_new.db',
 }
 
 #class_dump_z的路径
@@ -36,7 +36,9 @@ class_dump_z_path = {
 #配置各个不同sdk版本的framework目录，
 sdks_config = []
 sdks_config.append({
-    'sdk': '7.0', 
-    'framework': '/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.0.sdk/System/Library/Frameworks/', 
-    'private_framework': '/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.0.sdk/System/Library/PrivateFrameworks/'
+    'sdk': '9.3',
+    'framework': '/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.3.sdk/System/Library/Frameworks/',
+    'private_framework': '/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.3.sdk/System/Library/PrivateFrameworks/'
 })
+
+build_type_list = ["instp","tdef",'instm','intfm','clm','cl']

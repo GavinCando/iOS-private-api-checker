@@ -56,23 +56,26 @@ def get_app_strings(app_path):
     info:strings - 显示文件中的可打印字符
     strings 的主要用途是确定非文本文件的包含的文本内容。
     """
+    #创建结果存放文件
     cur_dir = os.getcwd() 
     strings_file_name  = 'strings_' + os.path.basename(app_path) or 'strings'
-    strings_file_name = os.path.join(cur_dir, "tmp/" + strings_file_name)
+    strings_file_name = os.path.join(cur_dir, "result/" + strings_file_name)
 
+    #使用strings获得ipa字符信息
     cmd = "/usr/bin/strings %s > %s" % (app_path, strings_file_name)
     os.system(cmd)
 
     fp = open(strings_file_name)
     output = fp.readlines()
     fp.close()
-    os.remove(strings_file_name)
+    # os.remove(strings_file_name)
 
     tmpList = []
     for outputLine in output:
         outputLine = outputLine.replace("\n","")
         for splitTmp in outputLine.split():
-            tmpList.append(splitTmp)
+            if (len(splitTmp) > 2):#2个以上字符才算 我也不知道为什么 先这么搞吧
+                tmpList.append(splitTmp)
 
     rtValue = set(tmpList)
 
@@ -114,10 +117,11 @@ def get_app_variables(app):
             m = r.groups()
             res.add(m[0])
             res.add("set" + m[0].title() + ":")
-            print "set" + m[0].title() + ":"
+            # print "set" + m[0].title() + ":"
             if m[1] != None:
                 # res.add("V"+m[1])
                 res.add(m[1])
+
     return res
 
 
@@ -128,10 +132,10 @@ def get_app_methods(app):
     dump_result = class_dump_utils.dump_app(app)
     methods_file_name  = 'method_' + os.path.basename(app) or 'app_methods'
     cur_dir = os.getcwd()
-    methods_file_name = os.path.join(cur_dir, "tmp/" + methods_file_name)
+    methods_file_name = os.path.join(cur_dir, "result/" + methods_file_name)
     
-    strings = open(methods_file_name + ".txt", "w")
-    #print methods_file_name
+    strings = open(methods_file_name, "w")
+
     print >>strings, dump_result 
     #ret_methods = set()
     methods = api_helpers.extract(dump_result)
